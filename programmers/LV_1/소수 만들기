@@ -2,9 +2,8 @@
 #include <iostream>
 using namespace std;
 
-bool is_prime(int num){ // 소수를 찾는 함수 num이 num보다 작은 수로 나누어지면 false 안나눠지면 true 반환, 
-                        // num의 1/2초과인 수로는 나눠지지 않으므로 num/2를 해주어 런타임 줄여줌.
-    for(int i=2; i<num/2; i++){ 
+bool is_prime(int num){ // 소수를 찾는 함수 num이 num보다 작은 수로 나누어지면 false 안나눠지면 true 반환.
+    for(int i=2; i<num/2; i++){ // num의 1/2초과인 수로는 나눠지지 않으므로 num/2를 해주어 런타임 줄여줌.
         if(num % i == 0) {
           return false;  
         }
@@ -16,7 +15,7 @@ int solution(vector<int> nums) {
     int answer = 0;
     int sum = 0;
     
-    for(int i = 0; i<nums.size(); i++){ // 숫자 3개를 더해 소수가 되는 경우기 때문에 for문을 3개 써 줌
+    for(int i = 0; i<nums.size(); i++){ // 숫자 3개를 더해 소수가 되는 경우기 때문에 for문을 3개를 사용
         for(int j = i+1; j<nums.size(); j++){
             for(int k = j+1; k<nums.size(); k++){
                 sum = nums.at(i) + nums.at(j) + nums.at(k);
