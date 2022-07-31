@@ -1,0 +1,43 @@
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+using namespace std;
+
+/*
+피신고자의 신고횟수가 k 이상일 때 피신고자를 신고한 신고자 모두에게 메일을 보내주어야 함중
+신고자가 똑같은 사람을 신고할 경우 cnt++ 해주지 않음 - set라이브러리를 사용하여 중복 방지
+
+신고자 - 피신고자 : set 라이브러리 사용하여 피신고자 중복 방지, 연관관계 생성 
+피신고자 - 신고횟수 : map 라이브러리사용하여 연관관계 형성
+*/
+map<string, set<string>> reportUser; // 신고자 - 피신고자
+map<string, int> reportCnt; // 피신고자 - 신고횟수 
+
+
+vector<int> solution(vector<string> id_list, vector<string> report, int k) {
+    vector<int> answer;
+    string reporter; 
+    string respondent; 
+    
+    for(string s: report){
+        reporter = s.substr(0, s.find(' ')); // 신고자
+        respondent = s.substr(s.find(' ')); // 피신고자
+        
+        if(reportUser[reporter].find(respondent) == reportUser[reporter].end()){ // 신고자가 피신고자를 신고한적 있나 탐색, 없으면
+            reportCnt[respondent]++; // 피신고자의 신고횟수++
+            reportUser[reporter].insert(respondent); // 신고자의 키에 피신고자를 삽입
+        }
+    }
+    
+    for(string s: id_list){ // id_list 를 순차적으로 순회
+        int cnt=0;
+        
+        for(string ss: reportUser[s]) // 신고자를 키로갖는 값들을 순회
+            if(reportCnt[ss]>=k) // 신고자가 신고한 피신고자의 신고횟수가 k이상이면
+                cnt++; // 메일 받는 횟수 ++
+        
+        answer.push_back(cnt); // 메일 횟수를 삽입
+    }
+    return answer;
+}
