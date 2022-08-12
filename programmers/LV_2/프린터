@@ -1,0 +1,36 @@
+#include <string>
+#include <vector>
+#include <queue>
+ 
+using namespace std;
+ 
+int solution(vector<int> priorities, int location) {
+    int answer = 0, count = 0;
+    queue<pair<int, int>> que; // 일반큐
+    priority_queue <int> pque; // 우선순위 큐 - push하면 자동으로 내림차순으로 정렬
+    
+ 
+    for (int i = 0; i < priorities.size(); i++) {
+        que.push(make_pair(i, priorities[i])); // 큐에 들어온 순서와 중요도를 넣음
+        pque.push(priorities[i]); // 우선순위 큐에 넣음
+    }
+    
+    while (!que.empty()) { // 큐가 빌때까지 반복
+        int index = que.front().first;
+        int value = que.front().second;
+        que.pop();
+        
+        if (pque.top() == value) { // 우선순위 1순위와 현재값이 같다면
+            pque.pop(); // 우선순위큐 pop
+            count++; // 하나가 나갔으므로 count
+            if (index == location) { // 현재 나간것이 원하는것과 같다면
+                answer = count; //현재 카운터를 리턴
+                break;
+            }
+        }
+        
+        else // 우선순위 1순위와 현재값이 같지않다면 큐 뒤에 넣기
+            que.push(make_pair(index, value));
+    }
+    return answer;
+}
