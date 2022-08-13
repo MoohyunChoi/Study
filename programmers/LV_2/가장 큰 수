@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+bool compare(const string &a, const string &b) { // 문자열 ab가 ba보다 크면 true 반환
+    return a+b > b+a;
+}
+
+string solution(vector<int> numbers) {
+    string answer = "";
+    vector<string> strNum;
+    
+    for(auto i: numbers){
+        strNum.push_back(to_string(i)); // 배열strNum에 i를 string으로 변환하여 삽입
+    }
+
+    sort(strNum.begin(), strNum.end(), compare); // 문자열끼리의 크기 비교를 통해 정렬
+    
+    if(strNum[0] == "0") return "0"; // 배열의 원소가 0일경우 따로 처리가 필요하여 처리해줌
+    for(auto i: strNum){
+        answer+=i;
+    }
+    return answer;
+}
