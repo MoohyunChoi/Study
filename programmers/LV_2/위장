@@ -1,0 +1,18 @@
+#include <string>
+#include <vector>
+#include <map>
+using namespace std;
+
+int solution(vector<vector<string>> clothes) {
+    int answer = 1;
+    map<string,int> clothesCnt; // 옷의 종류에 따라 개수를 세어주어야 하므로 map<string,int>형으로 선언
+    
+    for(auto clothe:clothes){ // 옷의 종류가 동일하면 개수 +1
+        clothesCnt[clothe[1]]++;
+    }
+    
+    for(auto i=clothesCnt.begin(); i!=clothesCnt.end();i++) // 옷의 개수에 따라서 옷의 종류마다 선택하지 않는 선택지가 있으므로 +1해 주어 옷의 종류만큼 서로 곱해줌 
+        answer *= i->second+1;
+    
+    return answer-1; // 옷 전체를 안입는 선택지는 빼줌
+}
