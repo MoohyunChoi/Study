@@ -1,0 +1,41 @@
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+int solution(int bridge_length, int weight, vector<int> truck_weights) {
+    int answer = 0;
+    
+    int index=0; // 트럭의 위치를 가르키는 변수 선언
+    int sum=0; //현재 다리에 올라와있는 차량 무게 총합
+    queue<int> onBridge;  //현재 다리를 건너는 트럭 체크용 큐
+    
+    while(true){
+        // 마지막 트럭일 때 마지막 트럭이 지나는 시간 추가
+        if(index == truck_weights.size()){  
+            answer += bridge_length; 
+            break;  
+        }
+        
+        // 차가 다리를 다 건넜을 경우 현재 다리에 있는 차들의 무게에서 제외
+        if(onBridge.size() == bridge_length){
+            sum -= onBridge.front();
+            onBridge.pop();  
+        }
+        
+        int temp = truck_weights[index];
+        
+        // 다리에 다음 차가 진입할 수 있는지 체크 후 차량 무게 추가
+        if(sum + temp <= weight){  
+            sum += temp;
+            onBridge.push(temp);  
+            index++;  
+        }else{   
+            onBridge.push(0);  //진입할 수 없다면 0을 푸시해서 시간초 계산
+        }
+        
+        answer++; // 시간초 증가
+    }
+   
+    return answer;
+}
