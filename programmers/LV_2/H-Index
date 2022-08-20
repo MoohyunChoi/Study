@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    
+    // 논문의 인용된 수를 내림차순으로 정렬
+    for(int i=0; i<citations.size();i++){ 
+        for(int j=i+1;j<citations.size();j++){
+            if(citations[i]<citations[j]){
+                int temp = citations[i];
+                citations[i] = citations[j];
+                citations[j] = temp;
+            }
+        }
+    }
+    for(int i=0; i<citations.size();i++){
+        // 논문이 i+1번 이상 인용되었다면 answer의 개수 하나씩 올려줌
+        if(citations[i]>=i+1) answer++; 
+    }
+    
+    return answer;
+}
