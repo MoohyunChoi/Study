@@ -1,0 +1,24 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> prices) {
+    vector<int> answer;
+    
+    for(int i=0;i<prices.size();i++){
+        int temp = 0;
+        
+        for(int j=i+1;j<prices.size();j++){
+            // 뒤의 값과 비교하여 같거나 작으면 시간초 +1
+            if(prices[i]<=prices[j]) temp++;
+            // 뒤의 값보다 크면 +1 해주고 break
+            else {
+                temp++;
+                break;
+            }
+        }
+        answer.push_back(temp);
+    }
+    return answer;
+}
