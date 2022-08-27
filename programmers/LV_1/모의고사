@@ -1,0 +1,31 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> answers) {
+    vector<int> answer;
+    vector<int> first = {1,2,3,4,5};
+    vector<int> second = {2,1,2,3,2,4,2,5};
+    vector<int> third = {3,3,1,1,2,2,4,4,5,5};
+    int firstCnt=0, secondCnt=0, thirdCnt=0;
+    
+    for(int i=0;i<answers.size();i++){
+        
+        if(first[i%first.size()]==answers[i]) firstCnt++;
+        if(second[i%second.size()]==answers[i]) secondCnt++;
+        if(third[i%third.size()]==answers[i]) thirdCnt++;
+    }
+    
+    if(firstCnt>=secondCnt && firstCnt>=thirdCnt){
+        answer.push_back(1);
+    }
+    if(secondCnt>=thirdCnt && secondCnt>=firstCnt){
+        answer.push_back(2);
+    }
+    if(thirdCnt>=firstCnt && thirdCnt>=secondCnt){
+        answer.push_back(3);
+    }
+    
+    return answer;
+}
