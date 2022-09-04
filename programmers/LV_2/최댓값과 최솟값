@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+string solution(string s) {
+    string answer=" ";
+    vector<int> nums;
+    
+    for(auto i : s){
+        if(i==' ') {
+            nums.push_back(stoi(answer));
+            answer="";
+            }
+        else answer+=i;
+    }
+    nums.push_back(stoi(answer));
+    int min = nums[0], max = nums[0];
+    
+    for(auto i : nums){
+        if(i>max) max=i;
+        if(i<min) min=i;
+    }
+    
+    answer = to_string(min)+" "+to_string(max);
+    
+    return answer;
+}
