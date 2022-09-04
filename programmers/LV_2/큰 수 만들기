@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+string solution(string number, int k) {
+    for(int i=0; i<number.size();i++){
+        if(number[i]<number[i+1]) { //뒤의 숫자가 앞의 숫자보다 커야 하므로 
+            number.erase(i,1); //앞의 숫자가 더 작다면 지워줌
+            k--; //k만큼
+            i=-1; //지워줬으면 그 앞의 숫자와도 비교해 주어야 하므로 인덱스 처음부터 시작
+            }
+        if(k==0) break;
+    }
+    if(k>0) number.erase(number.size()-k, k); // k가 남아있는데 앞의숫자가 내림차순으로 정렬됐을 경우도 있으므로 뒤의 숫자를 k만큼 지워줌
+    
+    return number;
+}
