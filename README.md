@@ -1,2 +1,2 @@
-# coding_study
-# programmers_solving_recording
+# study
+Coding problem solving log
